@@ -6,7 +6,7 @@ This is the code for the EAS single fiber model described in:
    to appear in JARO - Journal of the Association for Research in Otolaryngology
  
 Please cite this paper if you publish any research results obtained with this code or any modified versions of this code.
- 
+
 ## Acknowledgements
 
 This implementation of the EAS model is based on code of I. Bruce et al. and S. Joshi et al. described in:
@@ -60,3 +60,5 @@ and Lthr & Jthr are the estimated mean spike latency and jitter (in s) at thresh
 
 ************************
 Daniel Kipping, Aug 2021
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5467991.svg)](https://doi.org/10.5281/zenodo.5467991)
