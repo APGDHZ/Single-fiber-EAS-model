@@ -25,6 +25,12 @@
  * Daniel Kipping, Aug 2021
  *
  * %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ *
+ * Version history:
+ * - version 1.0.0 published in Sep 2021 by DK :  used for initial submission to JARO
+ * - version 1.0.1 revised Jul 2022 by DK      :  updated nomenclature according to the revised manuscript; minor bug fix
+ *
+ * %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  * 
  * Input:
  *   0: pAc   - sampled at  100 kHz
@@ -124,7 +130,7 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[]) {
     double  Ccen          = *mxGetPr(prhs[13]);         // membrane capacitance for central neuron (Joshi2017)
     double  sigmaCen      = *mxGetPr(prhs[15]);         // noise current amplitude for central neuron (Joshi2017)
     double  sigmaPer      = *mxGetPr(prhs[14]);         // noise current amplitude for peripheral neuron (Joshi2017)
-    double *couplingTmp   =  mxGetPr(prhs[16]);         // models are coupled for coupling=1,2 and uncoupled for coupling=0
+    double *couplingTmp   =  mxGetPr(prhs[16]);         // EAS model coupling variant (0=uncoupled; 1=coupled; 2=alternative coupling)
         
     const int pAcBins     = (int) mxGetN(prhs[0]);      // length of input sound wave (BEZ2018)
     const int pElBins     = (int) mxGetN(prhs[1]);      // length of input electric stimulus (Joshi2017)
@@ -181,7 +187,7 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[]) {
     double *iSub        = mxGetPr(plhs[ 9]);     // subthreshold adaptation current in A for each time bin (Joshi2017)
     double *iSupra      = mxGetPr(plhs[10]);     // suprathreshold adaptation current in A for each time bin (Joshi2017)
     double *iNoise      = mxGetPr(plhs[11]);     // noise current in A for each time bin (Joshi2017)
-    double *iVes        = mxGetPr(plhs[12]);     // vesicle release current in A for each time bin (only for coupling=2) (Joshi2017)
+    double *iVes        = mxGetPr(plhs[12]);     // vesicle release current in A for each time bin (only for coupled EAS model / coupling=1) (Joshi2017)
  
     /* ============================ */
     /* ======  run the model  ===== */
@@ -463,7 +469,7 @@ void SpikeGenerator_EAS(double *Sout, double dtAc, int nbinsAc, double *pEl, dou
     double *tLastSpike_ptr = &tLastSpike;
     int    *isARP_ptr      = &isARP;
 
-    /* for coupling=2 */
+    /* for coupled EAS model / coupling=1 */
     double  tLastRelease      = -1000 ;
     double *tLastRelease_ptr  = &tLastRelease ;
     double  tTransmitter      = 40e-6 ;                     // duration of transmitter-released current
@@ -518,7 +524,7 @@ void SpikeGenerator_EAS(double *Sout, double dtAc, int nbinsAc, double *pEl, dou
         // int itmp = 0 ;
         while ( (i+1)*dtEl <= (k+1)*dtAc+dtEl/10 ) { // because of dtEl<dtAc, the electric system needs dtAc/dtEl steps to reach the same time as the acoustic part
             
-            if ((2==coupling) &&  ( i*dtEl-tLastRelease <= tTransmitter )) {
+            if ((1==coupling) &&  ( i*dtEl-tLastRelease <= tTransmitter )) { // for the coupled EAS model, set excitatory postsynaptic current after neurotransmitter releases
                 iVesTmp = iTransmitter ;
             } else {
                 iVesTmp = 0.0 ;
@@ -543,14 +549,14 @@ void SpikeGenerator_EAS(double *Sout, double dtAc, int nbinsAc, double *pEl, dou
         /* ----- handle EAS spikes ----- */
         /* ----------------------------- */
         
-        if (2==coupling) { /* COUPLING 2.0 */
+        if (1==coupling) { /* Coupled EAS model / coupling=1 */
             /* models are coupled - save the spike times of the electric model (acoustic model is ignored, as vesicle releases are fed into the electric model): */
 
             if ( 1==electricSpikeThisStep ) { // electric model is spiking
                 spCountEl = registerSpike(spTimeEl, spCountEl, k*dtAc) ;
             } 
         } 
-        else if (1==coupling) { /* COUPLING 1.0 */
+        else if (2==coupling) { /* Alternative EAS model / coupling=2 */
             /* models are coupled - each spike triggers the adaptation process of the other model */
 
             if ( ( 1==electricSpikeThisStep ) && (1==acousticSpikeThisStep) ) { 
@@ -644,7 +650,7 @@ void SpikeGenerator_EAS(double *Sout, double dtAc, int nbinsAc, double *pEl, dou
 }
 
 int registerSpike(double *spikeTimes, int spikeCount, double time) {
-    if ( time>0 ) {
+    if ( time>=0 ) {
         spikeTimes[spikeCount] = time ;
         return spikeCount+1 ;  
     } else {

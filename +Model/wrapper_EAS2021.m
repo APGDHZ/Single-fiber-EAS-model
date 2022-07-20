@@ -19,7 +19,7 @@ function [nspikes,psthA,psthE,meanrate,varrate,Sout,trd_vec,trel_vec,vihc,vmem,i
 %   - isub          ES model: subthreshold adaptation currents of peripheral/central neuron (in amperes)
 %   - isupra        ES model: suprathreshold adaptation currents of peripheral/central neuron (in amperes)
 %   - inoise        ES model: noise currents of peripheral/central neuron (in amperes)
-%   - ives          Physiological EAS model: neurotransmitter release-triggered excitatory current to the peripheral neuron (in amperes)
+%   - ives          Coupled EAS model: neurotransmitter release-triggered excitatory current to the peripheral neuron (in amperes)
 % (if more than 1 repetition is simulated (see below), the outputs vmem,isub,...,ives of the ES model correspond to the last of N runs.)
 %
 % Optional inputs (name-value-pairs):
@@ -37,11 +37,12 @@ function [nspikes,psthA,psthE,meanrate,varrate,Sout,trd_vec,trel_vec,vihc,vmem,i
 %   - Ccen          ES model: membrane capacitance of the central neuron in F [default=1772.4e-9] 
 %   - sigmaPer      ES model: noise current amplitude of the peripheral neuron (in amperes) [default=8.697e-6] 
 %   - sigmaCen      ES model: noise current amplitude of the central neuron (in amperes) [default=11.890e-6] 
-%   - coupling      EAS model coupling variant: "0" for uncoupled EAS model; "1" for logical EAS model; "2" for physiological EAS model [default=1] 
+%   - coupling      EAS model coupling variant: "0" for uncoupled EAS model; "1" for coupled EAS model; "2" for alternative EAS model [default=1] 
 %   - model         function handle of the EAS model .mex file [default=@Model.model_EAS2021] 
 %
 % %%% D. Kipping, Aug. 2021 %%%
 %
+% - revised by DK in Jul 2022
 
 fsAc = 1e5 ;
 fsEl = 1e6 ;

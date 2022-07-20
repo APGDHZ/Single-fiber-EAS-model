@@ -20,7 +20,7 @@
 %   - Ccen          ES model: membrane capacitance of the central neuron in F
 %   - sigmaPer      ES model: noise current amplitude of the peripheral neuron (in amperes)
 %   - sigmaCen      ES model: noise current amplitude of the central neuron (in amperes)
-%   - coupling      EAS model coupling variant: "0" for uncoupled EAS model; "1" for logical EAS model; "2" for physiological EAS model
+%   - coupling      EAS model coupling variant: "0" for uncoupled EAS model; "1" for coupled EAS model; "2" for alternative EAS model
 %
 % Output:
 %   - psthA         PSTH output of the AS model, 1 time bin = 1e-5 s
@@ -35,9 +35,10 @@
 %   - isub          ES model: subthreshold adaptation currents of peripheral/central neuron (in amperes)
 %   - isupra        ES model: suprathreshold adaptation currents of peripheral/central neuron (in amperes)
 %   - inoise        ES model: noise currents of peripheral/central neuron (in amperes)
-%   - ives          Physiological EAS model: neurotransmitter release-triggered excitatory current to the peripheral neuron (in amperes)
+%   - ives          Coupled EAS model: neurotransmitter release-triggered excitatory current to the peripheral neuron (in amperes)
 %
 % If more than 1 repetition is simulated (nrep>1), the outputs vmem,isub,...,ives of the ES model correspond to the last repetition.
 %
 % %%% D. Kipping, Aug. 2021 %%%
 %
+% - revised by DK in Jul 2022
