@@ -30,7 +30,7 @@ function [nspikes,psthA,psthE,meanrate,varrate,Sout,trd_vec,trel_vec,vihc,vmem,i
 %   - cihc          AS model: IHC scaling factor (1 is normal IHC function; 0 is complete IHC dysfunction) [default=1] 
 %   - noiseType     AS model: "1" for variable fGn and "0" for fixed (frozen) fGn [default=1] 
 %   - implnt        AS model: "0" for approx. and "1" for actual implementation of the power-law functions [default=0] 
-%   - spont         AS model: spontaneous firing rate in /s [default=1000] 
+%   - spont         AS model: spontaneous firing rate in /s [default=1/1000] 
 %   - tabs          AS model: absolute refractory period in s (time constants of the ES model are scaled according to this variable) [default=450.0e-6] 
 %   - trel          AS model: baselines mean relative refractory period in s (time constants of the ES model are scaled according to this variable) [default=512.5e-6] 
 %   - Cper          ES model: membrane capacitance of the peripheral neuron in F [default=856.96e-9] 
