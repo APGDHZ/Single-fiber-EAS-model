@@ -54,4 +54,4 @@ and Lthr & Jthr are the estimated mean spike latency and jitter (in s) at thresh
 Daniel Kipping, Aug 2021
 (updated Nov 2022)
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.6866742.svg)](https://doi.org/10.5281/zenodo.6866742)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7331364.svg)](https://doi.org/10.5281/zenodo.7331364)
