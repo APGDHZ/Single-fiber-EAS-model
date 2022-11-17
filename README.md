@@ -2,7 +2,7 @@
 
 This is the code for the EAS single fiber model described in:
   
-- Kipping, D., and Nogueira, W. (under review). "A computational model of a single auditory nerve fiber for electric-acoustic stimulation", to appear in JARO - Journal of the Association for Research in Otolaryngology
+- Kipping, D., Nogueira, W., 2022. A Computational Model of a Single Auditory Nerve Fiber for Electric-Acoustic Stimulation. J. Assoc. Res. Otolaryngol. https://doi.org/10.1007/s10162-022-00870-2
  
 Please cite this paper if you publish any research results obtained with this code or any modified versions of this code.
 
@@ -52,6 +52,6 @@ and Lthr & Jthr are the estimated mean spike latency and jitter (in s) at thresh
 
 ************************
 Daniel Kipping, Aug 2021
-(updated Jul 2022)
+(updated Nov 2022)
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.6866742.svg)](https://doi.org/10.5281/zenodo.6866742)
